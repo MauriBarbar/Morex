@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq '{hookSpecificOutput: {hookEventName: \"PostToolUse\", additionalContext: (\"File written: \" + (.tool_input.file_path // \"unknown\") + \". Evaluate whether this file or its pattern should be added to .gitignore. If it should be ignored, update .gitignore immediately.\")}}'"
+          }
+        ]
+      }
+    ]
+  }
+}
