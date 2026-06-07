@@ -21,7 +21,11 @@ class Signal {
     required this.createdAt,
   });
 
-  bool get isActionable => confidence >= 0.75;
+  /// Shown in UI and eligible for manual execution.
+  bool get isActionable => confidence >= 0.60;
+
+  /// Auto-execution threshold — higher bar to avoid low-confidence auto-trades.
+  bool get isAutoExecutable => confidence >= 0.75;
 
   factory Signal.fromJson(Map<String, dynamic> json) {
     return Signal(
@@ -37,7 +41,9 @@ class Signal {
       ),
       reasoning: json['reasoning'] ?? '',
       sourceHeadlines: List<String>.from(json['source_headlines'] ?? []),
-      createdAt: DateTime.now(),
+      createdAt: json['created_at'] != null
+          ? DateTime.tryParse(json['created_at'] as String) ?? DateTime.now()
+          : DateTime.now(),
     );
   }
 }

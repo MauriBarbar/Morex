@@ -8,6 +8,8 @@ class Account {
   final double buyingPower;
   final double portfolioValue;
   final double lastEquity;
+  final int daytradeCount;
+  final bool patternDayTrader;
 
   const Account({
     required this.id,
@@ -19,6 +21,8 @@ class Account {
     required this.buyingPower,
     required this.portfolioValue,
     required this.lastEquity,
+    this.daytradeCount = 0,
+    this.patternDayTrader = false,
   });
 
   double get dailyPnL => equity - lastEquity;
@@ -37,6 +41,10 @@ class Account {
       portfolioValue:
           double.tryParse(json['portfolio_value'] ?? '0') ?? 0,
       lastEquity: double.tryParse(json['last_equity'] ?? '0') ?? 0,
+      daytradeCount: (json['daytrade_count'] is int)
+          ? json['daytrade_count'] as int
+          : int.tryParse('${json['daytrade_count'] ?? 0}') ?? 0,
+      patternDayTrader: json['pattern_day_trader'] == true,
     );
   }
 }

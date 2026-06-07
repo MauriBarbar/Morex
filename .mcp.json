@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "alpaca": {
+      "command": "zsh",
+      "args": [
+        "-lc",
+        "set -a && source .env && set +a && exec uvx alpaca-mcp-server"
+      ],
+      "note": "Alpaca MCP server for local paper-trading access. Loads Alpaca credentials from the project .env at runtime."
+    }
+  }
+}
